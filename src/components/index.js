@@ -1,0 +1,14 @@
+export { default as Navbar } from './layout/Navbar'
+export { default as NavMenu } from './layout/NavMenu'
+export { default as HamburgerButton } from './layout/HamburgerButton'
+export { default as UserInfo } from './layout/UserInfo'
+export { default as Footer } from './layout/Footer'
+
+export { default as WelcomeSection } from './sections/WelcomeSection'
+export { default as TentangKami } from './sections/TentangKami'
+export { default as BMICalculator } from './sections/BMICalculator'
+export { default as CariMakanan } from './sections/CariMakanan'
+export { default as HitungKalori } from './sections/HitungKalori'
+
+export { default as Login } from './auth/Login'
+export { default as Register } from './auth/Register'

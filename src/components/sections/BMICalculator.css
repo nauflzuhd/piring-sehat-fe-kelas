@@ -1,0 +1,293 @@
+.bmi-section {
+  min-height: 100vh;
+  padding: 80px 20px 40px;
+  background: linear-gradient(135deg, #f0fdf4 0%, #ffffff 100%);
+  display: flex;
+  align-items: center;
+  justify-content: center;
+}
+
+.bmi-container {
+  max-width: 600px;
+  width: 100%;
+  background: white;
+  border-radius: 20px;
+  padding: 40px;
+  box-shadow: 0 10px 40px rgba(0, 0, 0, 0.1);
+}
+
+.bmi-title {
+  font-size: 2.5rem;
+  color: #333;
+  margin-bottom: 10px;
+  text-align: center;
+}
+
+.bmi-description {
+  text-align: center;
+  color: #666;
+  margin-bottom: 30px;
+  line-height: 1.6;
+}
+
+.bmi-form {
+  margin-bottom: 30px;
+}
+
+.bmi-form-group {
+  margin-bottom: 20px;
+}
+
+.bmi-form-group label {
+  display: block;
+  margin-bottom: 8px;
+  color: #333;
+  font-weight: 500;
+}
+
+.bmi-form-group input {
+  width: 100%;
+  padding: 12px 15px;
+  border: 2px solid #e0e0e0;
+  border-radius: 10px;
+  font-size: 1rem;
+  transition: border-color 0.3s;
+  box-sizing: border-box;
+}
+
+.bmi-form-group input:focus {
+  outline: none;
+  border-color: #10b981;
+}
+
+.bmi-gender-group {
+  margin-bottom: 25px;
+}
+
+.bmi-gender-label {
+  display: block;
+  margin-bottom: 12px;
+  color: #333;
+  font-weight: 500;
+  font-size: 1rem;
+}
+
+.bmi-gender-options {
+  display: flex;
+  gap: 15px;
+  justify-content: center;
+}
+
+.bmi-gender-option {
+  flex: 1;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  padding: 15px 20px;
+  border: 2px solid #e0e0e0;
+  border-radius: 10px;
+  cursor: pointer;
+  transition: all 0.3s;
+  background: white;
+}
+
+.bmi-gender-option:hover {
+  border-color: #10b981;
+  background: #f0fdf4;
+}
+
+.bmi-gender-option input[type="radio"] {
+  display: none;
+}
+
+.bmi-gender-option input[type="radio"]:checked + .bmi-gender-text {
+  color: #10b981;
+  font-weight: 600;
+}
+
+.bmi-gender-option:has(input[type="radio"]:checked) {
+  border-color: #10b981;
+  background: #f0fdf4;
+  box-shadow: 0 2px 8px rgba(16, 185, 129, 0.2);
+}
+
+.bmi-gender-text {
+  font-size: 1rem;
+  color: #666;
+  transition: all 0.3s;
+  display: flex;
+  align-items: center;
+  gap: 8px;
+}
+
+.bmi-form-buttons {
+  display: flex;
+  gap: 15px;
+  margin-top: 25px;
+}
+
+.bmi-btn-calculate,
+.bmi-btn-reset {
+  flex: 1;
+  padding: 12px 20px;
+  border: none;
+  border-radius: 10px;
+  font-size: 1rem;
+  font-weight: 600;
+  cursor: pointer;
+  transition: all 0.3s;
+}
+
+.bmi-btn-calculate {
+  background: linear-gradient(135deg, #10b981 0%, #059669 100%);
+  color: white;
+}
+
+.bmi-btn-calculate:hover {
+  transform: translateY(-2px);
+  box-shadow: 0 5px 15px rgba(16, 185, 129, 0.4);
+}
+
+.bmi-btn-reset {
+  background: #6b7280;
+  color: white;
+}
+
+.bmi-btn-reset:hover {
+  background-color: #4b5563;
+  color: white;
+}
+
+.bmi-result {
+  text-align: center;
+  padding: 30px;
+  background: #f0fdf4;
+  border-radius: 15px;
+  margin-top: 20px;
+}
+
+.bmi-result h3 {
+  color: #333;
+  margin-bottom: 20px;
+}
+
+.bmi-value {
+  font-size: 3rem;
+  font-weight: bold;
+  color: #10b981;
+  margin-bottom: 15px;
+}
+
+.bmi-category {
+  display: inline-block;
+  padding: 10px 30px;
+  border-radius: 25px;
+  font-size: 1.2rem;
+  font-weight: 600;
+  margin-bottom: 20px;
+}
+
+.bmi-category.kurus {
+  background: #ffeb3b;
+  color: #333;
+}
+
+.bmi-category.normal {
+  background: #4caf50;
+  color: white;
+}
+
+.bmi-category.gemuk {
+  background: #ff9800;
+  color: white;
+}
+
+.bmi-category.obesitas {
+  background: #f44336;
+  color: white;
+}
+
+.bmi-weight-recommendation {
+  background: #e0f2fe;
+  border-left: 4px solid #0284c7;
+  padding: 12px 16px;
+  border-radius: 8px;
+  margin: 20px 0;
+  color: #0c4a6e;
+  font-size: 0.95rem;
+  line-height: 1.5;
+  text-align: left;
+}
+
+.bmi-info {
+  margin-top: 20px;
+  text-align: left;
+}
+
+.bmi-info h4 {
+  color: #333;
+  margin-bottom: 10px;
+}
+
+.bmi-info ul {
+  list-style: none;
+  padding: 0;
+}
+
+.bmi-info li {
+  padding: 8px 0;
+  color: #666;
+  border-bottom: 1px solid #e0e0e0;
+}
+
+.bmi-info li:last-child {
+  border-bottom: none;
+}
+
+.bmi-error-text {
+  color: #e74c3c;
+  background-color: #fdecea;
+  border: 1px solid #f5c6cb;
+  padding: 8px 12px;
+  border-radius: 6px;
+  margin-top: 6px;
+  font-size: 0.9rem;
+  display: flex;
+  align-items: center;
+  gap: 6px;
+  animation: shake 0.3s ease-in-out;
+}
+
+@media (max-width: 768px) {
+  .bmi-section {
+    padding: 60px 15px 30px;
+  }
+
+  .bmi-container {
+    padding: 30px 20px;
+  }
+
+  .bmi-title {
+    font-size: 2rem;
+  }
+
+  .bmi-form-buttons {
+    flex-direction: column;
+  }
+
+  .bmi-gender-options {
+    gap: 10px;
+  }
+
+  .bmi-gender-option {
+    padding: 12px 15px;
+  }
+
+  .bmi-gender-text {
+    font-size: 0.95rem;
+  }
+
+  .bmi-value {
+    font-size: 2.5rem;
+  }
+}

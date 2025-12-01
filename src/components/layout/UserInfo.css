@@ -1,0 +1,64 @@
+/* User Info in Navbar */
+.user-info-desktop {
+  display: flex;
+  align-items: center;
+  gap: 1rem;
+  background: rgba(255, 255, 255, 0.15);
+  padding: 0.6rem 1rem;
+  border-radius: 50px;
+  backdrop-filter: blur(10px);
+  flex-shrink: 0;
+}
+
+.user-info-mobile {
+  display: none;
+}
+
+.user-email {
+  color: white;
+  font-size: 0.9rem;
+  font-weight: 500;
+}
+
+.logout-button {
+  background-color: white;
+  color: #10b981;
+  border: none;
+  padding: 0.5rem 1rem;
+  border-radius: 20px;
+  font-size: 0.85rem;
+  font-weight: 600;
+  cursor: pointer;
+  transition: all 0.3s ease;
+}
+
+.logout-button:hover {
+  background-color: #f0fdf4;
+  transform: translateY(-2px);
+  box-shadow: 0 4px 8px rgba(0, 0, 0, 0.2);
+}
+
+@media (max-width: 768px) {
+  .user-info-desktop {
+    display: none;
+  }
+
+  .user-info-mobile {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    gap: 0.75rem;
+    margin: 2rem 1.5rem;
+    padding: 1.25rem;
+    background: rgba(255, 255, 255, 0.2);
+    border-radius: 12px;
+  }
+
+  .user-info-mobile .user-email {
+    font-size: 0.95rem;
+  }
+
+  .user-info-mobile .logout-button {
+    width: 100%;
+  }
+}

@@ -1,0 +1,16 @@
+/* Global App Styles */
+html {
+  scroll-behavior: smooth;
+}
+
+.app {
+  min-height: 100vh;
+  display: flex;
+  flex-direction: column;
+}
+
+/* Main Content Container */
+.content {
+  flex: 1;
+  width: 100%;
+}

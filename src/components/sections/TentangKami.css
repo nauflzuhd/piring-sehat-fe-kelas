@@ -1,0 +1,208 @@
+.tentang-section {
+  min-height: 100vh;
+  padding: 80px 20px 40px;
+  background: linear-gradient(135deg, #f0fdf4 0%, #ffffff 100%);
+  display: flex;
+  align-items: center;
+  justify-content: center;
+}
+
+.tentang-container {
+  max-width: 1000px;
+  width: 100%;
+  background: white;
+  border-radius: 20px;
+  padding: 50px;
+  box-shadow: 0 10px 40px rgba(0, 0, 0, 0.1);
+}
+
+.tentang-header {
+  text-align: center;
+  margin-bottom: 50px;
+}
+
+.tentang-title {
+  font-size: 3rem;
+  color: #333;
+  margin-bottom: 15px;
+}
+
+.tentang-subtitle {
+  font-size: 1.3rem;
+  color: #666;
+  font-weight: 300;
+}
+
+.about-content {
+  display: grid;
+  grid-template-columns: repeat(auto-fit, minmax(280px, 1fr));
+  gap: 30px;
+  margin-bottom: 50px;
+}
+
+.about-card {
+  background: linear-gradient(135deg, #f5f7fa 0%, #e8f5e9 100%);
+  padding: 30px;
+  border-radius: 15px;
+  text-align: center;
+  transition: transform 0.3s, box-shadow 0.3s;
+}
+
+.about-card:hover {
+  transform: translateY(-5px);
+  box-shadow: 0 10px 25px rgba(0, 0, 0, 0.1);
+}
+
+.card-icon {
+  font-size: 3rem;
+  margin-bottom: 20px;
+}
+
+.about-card h3 {
+  color: #333;
+  font-size: 1.5rem;
+  margin-bottom: 15px;
+}
+
+.about-card p {
+  color: #666;
+  line-height: 1.8;
+}
+
+.features-section {
+  margin-bottom: 50px;
+}
+
+.features-title {
+  text-align: center;
+  font-size: 2rem;
+  color: #333;
+  margin-bottom: 30px;
+}
+
+.features-grid {
+  display: grid;
+  grid-template-columns: repeat(auto-fit, minmax(220px, 1fr));
+  gap: 25px;
+}
+
+.feature-box {
+  background: #f8f9fa;
+  padding: 25px;
+  border-radius: 12px;
+  text-align: center;
+  border: 2px solid transparent;
+  transition: all 0.3s;
+}
+
+.feature-box:hover {
+  border-color: #10b981;
+  background: white;
+}
+
+.feature-emoji {
+  font-size: 2.5rem;
+  display: block;
+  margin-bottom: 15px;
+}
+
+.feature-box h4 {
+  color: #333;
+  font-size: 1.1rem;
+  margin-bottom: 10px;
+}
+
+.feature-box p {
+  color: #666;
+  font-size: 0.9rem;
+  line-height: 1.6;
+}
+
+.contact-section {
+  background: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
+  padding: 40px;
+  border-radius: 15px;
+  text-align: center;
+  color: white;
+  margin-bottom: 30px;
+}
+
+.contact-section h3 {
+  font-size: 2rem;
+  margin-bottom: 15px;
+}
+
+.contact-description {
+  font-size: 1.1rem;
+  margin-bottom: 30px;
+  opacity: 0.9;
+}
+
+.contact-info {
+  display: flex;
+  flex-direction: column;
+  gap: 15px;
+  max-width: 400px;
+  margin: 0 auto;
+}
+
+.contact-item {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  gap: 15px;
+  padding: 15px;
+  background: rgba(255, 255, 255, 0.1);
+  border-radius: 10px;
+  backdrop-filter: blur(10px);
+}
+
+.contact-icon {
+  font-size: 1.5rem;
+}
+
+.footer-note {
+  text-align: center;
+  padding-top: 30px;
+  border-top: 1px solid #e0e0e0;
+}
+
+.footer-note p {
+  color: #666;
+  font-size: 0.9rem;
+}
+
+@media (max-width: 768px) {
+  .tentang-section {
+    padding: 60px 15px 30px;
+  }
+
+  .tentang-container {
+    padding: 30px 20px;
+  }
+
+  .tentang-title {
+    font-size: 2rem;
+  }
+
+  .tentang-subtitle {
+    font-size: 1.1rem;
+  }
+
+  .about-content {
+    grid-template-columns: 1fr;
+    gap: 20px;
+  }
+
+  .features-grid {
+    grid-template-columns: 1fr;
+  }
+
+  .contact-section {
+    padding: 30px 20px;
+  }
+
+  .contact-section h3 {
+    font-size: 1.5rem;
+  }
+}

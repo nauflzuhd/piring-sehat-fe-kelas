@@ -1,0 +1,165 @@
+.protein-section {
+  min-height: 100vh;
+  padding: 80px 20px 40px;
+  background: linear-gradient(135deg, #f0fdf4 0%, #ffffff 100%);
+  display: flex;
+  align-items: center;
+  justify-content: center;
+}
+
+.protein-container {
+  max-width: 600px;
+  width: 100%;
+  background: white;
+  border-radius: 20px;
+  padding: 40px;
+  box-shadow: 0 10px 40px rgba(0, 0, 0, 0.1);
+}
+
+.protein-title {
+  font-size: 2.5rem;
+  color: #333;
+  margin-bottom: 10px;
+  text-align: center;
+}
+
+.protein-description {
+  text-align: center;
+  color: #666;
+  margin-bottom: 30px;
+  line-height: 1.6;
+}
+
+.protein-form {
+  margin-bottom: 30px;
+}
+
+.protein-form-group {
+  margin-bottom: 20px;
+}
+
+.protein-form-group label {
+  display: block;
+  margin-bottom: 8px;
+  color: #333;
+  font-weight: 500;
+}
+
+.protein-form-group input,
+.protein-form-group select {
+  width: 100%;
+  padding: 12px 15px;
+  border: 2px solid #e0e0e0;
+  border-radius: 10px;
+  font-size: 1rem;
+  transition: border-color 0.3s;
+  box-sizing: border-box;
+  background-color: white;
+}
+
+.protein-form-group input:focus,
+.protein-form-group select:focus {
+  outline: none;
+  border-color: #10b981;
+}
+
+.protein-form-buttons {
+  display: flex;
+  gap: 15px;
+  margin-top: 30px;
+}
+
+.protein-btn-calc,
+.protein-btn-reset {
+  flex: 1;
+  padding: 14px 20px;
+  border: none;
+  border-radius: 10px;
+  font-size: 1rem;
+  font-weight: 600;
+  cursor: pointer;
+  transition: all 0.3s ease;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+}
+
+.protein-btn-calc {
+  background: linear-gradient(135deg, #10b981 0%, #059669 100%);
+  color: white;
+  box-shadow: 0 4px 6px rgba(16, 185, 129, 0.2);
+}
+
+.protein-btn-calc:hover {
+  transform: translateY(-2px);
+  box-shadow: 0 6px 12px rgba(16, 185, 129, 0.3);
+}
+
+.protein-btn-reset {
+  background: #6b7280;
+  color: white;
+}
+
+.protein-btn-reset:hover {
+  background-color: #4b5563;
+  transform: translateY(-2px);
+  box-shadow: 0 4px 6px rgba(0, 0, 0, 0.1);
+}
+
+.protein-result {
+  text-align: center;
+  padding: 30px;
+  background: #f0fdf4;
+  border-radius: 15px;
+  margin-top: 20px;
+  border: 1px solid #d1fae5;
+}
+
+.protein-result h3 {
+  color: #333;
+  margin-bottom: 20px;
+}
+
+.protein-value {
+  font-size: 3rem;
+  font-weight: bold;
+  color: #10b981;
+  margin-bottom: 15px;
+}
+
+.protein-error-text {
+  color: #e74c3c;
+  background-color: #fdecea;
+  border: 1px solid #f5c6cb;
+  padding: 8px 12px;
+  border-radius: 6px;
+  margin-top: 6px;
+  font-size: 0.9rem;
+  display: flex;
+  align-items: center;
+  gap: 6px;
+  animation: shake 0.3s ease-in-out;
+  justify-content: center;
+}
+
+@media (max-width: 768px) {
+  .protein-section {
+    padding: 60px 15px 30px;
+  }
+
+  .protein-container {
+    padding: 30px 20px;
+  }
+
+  .protein-title {
+    font-size: 2rem;
+  }
+
+  .protein-form-buttons {
+    flex-direction: column;
+  }
+
+  .protein-value {
+    font-size: 2.5rem;
+  }
+}
