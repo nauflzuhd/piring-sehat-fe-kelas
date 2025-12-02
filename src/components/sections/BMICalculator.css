@@ -1,7 +1,7 @@
 .bmi-section {
   min-height: 100vh;
   padding: 80px 20px 40px;
-  background: linear-gradient(135deg, #f0fdf4 0%, #ffffff 100%);
+  background: transparent;
   display: flex;
   align-items: center;
   justify-content: center;
@@ -10,10 +10,11 @@
 .bmi-container {
   max-width: 600px;
   width: 100%;
-  background: white;
+  background: rgba(255, 255, 255, 0.95);
+  backdrop-filter: blur(10px);
   border-radius: 20px;
   padding: 40px;
-  box-shadow: 0 10px 40px rgba(0, 0, 0, 0.1);
+  box-shadow: 0 8px 32px rgba(0, 0, 0, 0.1);
 }
 
 .bmi-title {

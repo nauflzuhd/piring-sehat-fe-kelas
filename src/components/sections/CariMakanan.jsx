@@ -1,6 +1,5 @@
 import { useState, useEffect } from 'react'
 import './CariMakanan.css'
-import bgCari from "../../assets/bg-carimakanan.png";
 import { searchFoodsByName } from '../../services/makananService'
 
 const LETTERS = 'ABCDEFGHIJKLMNOPQRSTUVWXYZ'.split('')
@@ -89,7 +88,7 @@ function CariMakanan() {
   }
 
   return (
-    <div className="cari-background" style={{backgroundImage: `url(${bgCari})`}}>
+    <div className="cari-background">
       <section id="cari" className="cari-section">
         <div className="cari-container">
           <h2 className="cari-title">Cari Makanan</h2>
