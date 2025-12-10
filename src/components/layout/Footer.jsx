@@ -30,13 +30,15 @@ function Footer() {
             <li><a href="#" onClick={(e) => e.preventDefault()}>Fatih Dwi Anggoro</a></li>
             <li><a href="#" onClick={(e) => e.preventDefault()}>Muhammad Naufal Zuhdi</a></li>
             <li><a href="#" onClick={(e) => e.preventDefault()}>Rionaldo Benedictus Purba</a></li>
+            <li><a href="#" onClick={(e) => e.preventDefault()}>Frans Malindo Ginting</a></li>
+            <li><a href="#" onClick={(e) => e.preventDefault()}>Farid Sani Ahdaputra</a></li>
           </ul>
         </div>
 
         <div className="footer-section contact-section">
           <h3 className="footer-title">Hubungi Kami</h3>
           <div className="contact-info">
-            <p>Email: piringsehat@gmail.com</p>
+            <p>Email: piringsehatofficial@gmail.com</p>
             <p>Telp: +62 812 3456 7890</p>
           </div>
           

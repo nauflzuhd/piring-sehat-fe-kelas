@@ -41,15 +41,14 @@ async function request(path) {
 }
 
 /**
- * Cari daftar makanan berdasarkan nama (query), mengembalikan array hasil.
- * Jika `query` kosong, akan mengembalikan daftar default (limit jumlah).
+ * Mencari daftar makanan berdasarkan nama dari backend.
  *
- * @param {string} query Kata kunci pencarian.
- * @param {number} [limit=300] Batas jumlah hasil.
- * @returns {Promise<Array>} Array objek makanan.
+ * Jika `query` kosong, akan memanggil endpoint untuk mengambil daftar makanan dengan batas `limit`.
+ * Jika `query` terisi, akan mengirim parameter `query` dan `limit` ke endpoint pencarian.
  *
- * Fungsi ini memanggil endpoint pencarian makanan pada backend dan
- * mengembalikan `body.data` atau array kosong jika tidak ada data.
+ * @param {string} query - Kata kunci nama makanan.
+ * @param {number} [limit=300] - Batas maksimal hasil yang dikembalikan.
+ * @returns {Promise<any[]>} Array objek makanan (bisa kosong).
  */
 export async function searchFoodsByName(query, limit = 300) {
   const normalized = (query || '').trim()
@@ -67,9 +66,10 @@ export async function searchFoodsByName(query, limit = 300) {
 }
 
 /**
- * Ambil makanan pertama yang cocok dengan query (untuk autofill).
- * @param {string} query Kata kunci pencarian.
- * @returns {Promise<Object|null>} Objek makanan atau null jika tidak ditemukan.
+ * Mengambil satu data makanan pertama yang cocok dengan nama yang dicari.
+ *
+ * @param {string} query - Kata kunci nama makanan.
+ * @returns {Promise<any|null>} Objek makanan pertama atau null jika tidak ada hasil.
  */
 export async function getFirstFoodByName(query) {
   const normalized = (query || '').trim()

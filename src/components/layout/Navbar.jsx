@@ -13,7 +13,7 @@
  * @returns {JSX.Element}
  */
 
-import { useState } from 'react'
+import { useState, useEffect } from 'react'
 import './Navbar.css'
 import HamburgerButton from './HamburgerButton'
 import NavMenu from './NavMenu'
@@ -26,10 +26,22 @@ function Navbar({ userEmail, onLogout, onOpenLogin, isAuthenticated }) {
   const toggleMenu = () => setIsMenuOpen(!isMenuOpen)
   const closeMenu = () => setIsMenuOpen(false)
 
+  useEffect(() => {
+    if (!isMenuOpen) return
+
+    // Prevent scroll when menu is open
+    const preventScroll = (e) => e.preventDefault()
+    document.addEventListener('wheel', preventScroll, { passive: false })
+    document.addEventListener('touchmove', preventScroll, { passive: false })
+
+    return () => {
+      document.removeEventListener('wheel', preventScroll)
+      document.removeEventListener('touchmove', preventScroll)
+    }
+  }, [isMenuOpen])
+
   return (
     <>
-      {isMenuOpen && <div className="menu-overlay" onClick={closeMenu}></div>}
-
       <nav className="navbar">
         <div className="navbar-container">
 

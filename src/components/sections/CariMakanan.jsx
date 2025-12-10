@@ -1,5 +1,8 @@
 import { useState, useEffect } from 'react'
 import './CariMakanan.css'
+import bgCari from "../../assets/new-logo.png";
+import notFoundImage from "../../assets/notfound.png";
+
 import { searchFoodsByName } from '../../services/makananService'
 
 const LETTERS = 'ABCDEFGHIJKLMNOPQRSTUVWXYZ'.split('')
@@ -13,7 +16,7 @@ const LETTERS = 'ABCDEFGHIJKLMNOPQRSTUVWXYZ'.split('')
  */
 function CariMakanan() {
   const [searchTerm, setSearchTerm] = useState('')
-  const [debouncedSearchTerm, setDebouncedSearchTerm] = useState('') // 🆕 DEBOUNCE STATE
+  const [debouncedSearchTerm, setDebouncedSearchTerm] = useState('') // DEBOUNCE STATE
   const [allFoods, setAllFoods] = useState([])
   const [groupedFoods, setGroupedFoods] = useState({})
   const [isLoading, setIsLoading] = useState(false)
@@ -21,6 +24,8 @@ function CariMakanan() {
   const [selectedLetter, setSelectedLetter] = useState('A')
 
 
+  // Debounce input pencarian.
+  // Mengupdate `debouncedSearchTerm` 300ms setelah user berhenti mengetik.
   useEffect(() => {
     const timeout = setTimeout(() => {
       setDebouncedSearchTerm(searchTerm)
@@ -29,13 +34,12 @@ function CariMakanan() {
     return () => clearTimeout(timeout)
   }, [searchTerm])
 
+  // Load awal semua makanan (hingga limit tertentu) saat komponen pertama kali mount,
+  // lalu mengelompokkannya berdasarkan huruf pertama.
   useEffect(() => {
     loadAllFoods()
   }, [])
 
-  /**
-   * Muat semua makanan (dipakai saat tidak ada query atau saat inisialisasi).
-   */
   const loadAllFoods = async () => {
     try {
       setIsLoading(true)
@@ -51,10 +55,6 @@ function CariMakanan() {
     }
   }
 
-  /**
-   * Mengelompokkan array makanan berdasarkan huruf pertama nama.
-   * @param {Array} foods Array objek makanan.
-   */
   const groupFoodsByLetter = (foods) => {
     const grouped = {}
     
@@ -73,9 +73,10 @@ function CariMakanan() {
     }
   }
 
-  /**
-   * Memanggil API pencarian dengan query debounced.
-   */
+  const getAvailableLetters = () => {
+    return Object.keys(groupedFoods).sort()
+  }
+
   const fetchDebouncedFoods = async () => {
     try {
       setIsLoading(true)
@@ -92,6 +93,9 @@ function CariMakanan() {
     }
   }
 
+  // Setiap kali `debouncedSearchTerm` berubah:
+  // - jika kosong, reload semua makanan
+  // - jika berisi query, memanggil API pencarian dengan term yang sudah di-debounce.
   useEffect(() => {
     if (debouncedSearchTerm.trim() === '') {
       loadAllFoods()
@@ -135,7 +139,7 @@ function CariMakanan() {
 
           {/* Letter Navigation */}
           <div className="letter-navigation">
-            {LETTERS.map((letter) => (
+            {getAvailableLetters().map((letter) => (
               <button
                 key={letter}
                 className={`letter-btn ${selectedLetter === letter ? 'active' : ''}`}
@@ -155,9 +159,17 @@ function CariMakanan() {
                 {groupedFoods[selectedLetter] && groupedFoods[selectedLetter].length > 0 ? (
                   groupedFoods[selectedLetter].map((food) => (
                     <div key={food.id} className="food-item">
-                      {(food.image_url || food.image) && (
-                        <img src={food.image_url || food.image} alt={food.name} className="food-item-image" />
-                      )}
+                      <img
+                        src={food.image_url || food.image || notFoundImage}
+                        alt={food.name}
+                        className="food-item-image"
+                        onError={(e) => {
+                          if (e.target.src !== notFoundImage) {
+                            e.target.src = notFoundImage
+                          }
+                        }}
+                      />
+
                       <div className="food-item-content">
                         <h4>{food.name}</h4>
                         <div className="food-item-info">

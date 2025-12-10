@@ -8,6 +8,7 @@
   height: 28px;
   position: relative;
   z-index: 1004; /* di atas navbar-menu (1003) agar ikon X tetap terlihat */
+  z-index: 1003;
   flex-direction: column;
   justify-content: center;
   align-items: center;

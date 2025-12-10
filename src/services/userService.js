@@ -68,6 +68,15 @@ export async function syncFirebaseUserToSupabase(firebaseUser) {
   return body.id
 }
 
+/**
+ * Ambil profil user yang sedang login.
+ * @returns {Promise<Object>} Profil user.
+ */
+export async function getCurrentUserProfile() {
+  const body = await request('/api/users/me')
+  return body
+}
+
 // Ambil target kalori harian user (dalam kkal)
 /**
  * Ambil target kalori harian pengguna dari backend.

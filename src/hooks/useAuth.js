@@ -1,5 +1,6 @@
 import { useState, useEffect, useContext, createContext, createElement } from 'react'
 import { auth, googleProvider, githubProvider } from '../firebase'
+
 import {
   onAuthStateChanged,
   signOut,
@@ -8,7 +9,7 @@ import {
   signInWithPopup,
   updateProfile,
 } from 'firebase/auth'
-import { syncFirebaseUserToSupabase } from '../services/userService'
+import { syncFirebaseUserToSupabase, getCurrentUserProfile } from '../services/userService'
 
 const AuthContext = createContext(null)
 
@@ -45,6 +46,8 @@ function useProvideAuth() {
   const [username, setUsername] = useState('')
   const [userEmail, setUserEmail] = useState('')
   const [supabaseUserId, setSupabaseUserId] = useState(null)
+  const [userRole, setUserRole] = useState(null)
+
   const [isAuthenticated, setIsAuthenticated] = useState(false)
   const [initializing, setInitializing] = useState(true)
 
@@ -52,6 +55,7 @@ function useProvideAuth() {
     const unsubscribe = onAuthStateChanged(auth, async (fbUser) => {
       if (fbUser) {
         let userId = null
+
         try {
           userId = await syncFirebaseUserToSupabase(fbUser)
         } catch (_) {
@@ -62,12 +66,21 @@ function useProvideAuth() {
         setUserEmail(fbUser.email || '')
         setSupabaseUserId(userId)
         setIsAuthenticated(true)
+        try {
+          const profile = await getCurrentUserProfile()
+          setUserRole(profile?.role || 'user')
+        } catch (_) {
+          setUserRole(null)
+        }
       } else {
+
         setUser(null)
         setUsername('')
         setUserEmail('')
         setSupabaseUserId(null)
+        setUserRole(null)
         setIsAuthenticated(false)
+
       }
       setInitializing(false)
     })
@@ -89,12 +102,20 @@ function useProvideAuth() {
     const cred = await signInWithEmailAndPassword(auth, email, password)
     const fbUser = cred.user
     const userId = await syncFirebaseUserToSupabase(fbUser)
+
     setUser(fbUser)
     setUsername(getUsernameFromUser(fbUser))
     setUserEmail(fbUser.email || '')
     setSupabaseUserId(userId)
     setIsAuthenticated(true)
+    try {
+      const profile = await getCurrentUserProfile()
+      setUserRole(profile?.role || 'user')
+    } catch (_) {
+      setUserRole(null)
+    }
     return { user: fbUser, supabaseUserId: userId }
+
   }
 
   /**
@@ -121,6 +142,12 @@ function useProvideAuth() {
     setUserEmail(fbUser.email || '')
     setSupabaseUserId(userId)
     setIsAuthenticated(true)
+    try {
+      const profile = await getCurrentUserProfile()
+      setUserRole(profile?.role || 'user')
+    } catch (_) {
+      setUserRole(null)
+    }
     return { user: fbUser, supabaseUserId: userId }
   }
 
@@ -133,11 +160,18 @@ function useProvideAuth() {
     const result = await signInWithPopup(auth, googleProvider)
     const fbUser = result.user
     const userId = await syncFirebaseUserToSupabase(fbUser)
+
     setUser(fbUser)
     setUsername(getUsernameFromUser(fbUser))
     setUserEmail(fbUser.email || '')
     setSupabaseUserId(userId)
     setIsAuthenticated(true)
+    try {
+      const profile = await getCurrentUserProfile()
+      setUserRole(profile?.role || 'user')
+    } catch (_) {
+      setUserRole(null)
+    }
     return { user: fbUser, supabaseUserId: userId }
   }
 
@@ -155,6 +189,12 @@ function useProvideAuth() {
     setUserEmail(fbUser.email || '')
     setSupabaseUserId(userId)
     setIsAuthenticated(true)
+    try {
+      const profile = await getCurrentUserProfile()
+      setUserRole(profile?.role || 'user')
+    } catch (_) {
+      setUserRole(null)
+    }
     return { user: fbUser, supabaseUserId: userId }
   }
 
@@ -165,10 +205,12 @@ function useProvideAuth() {
    */
   const logout = async () => {
     await signOut(auth)
+
     setUser(null)
     setUsername('')
     setUserEmail('')
     setSupabaseUserId(null)
+    setUserRole(null)
     setIsAuthenticated(false)
   }
 
@@ -177,6 +219,8 @@ function useProvideAuth() {
     username,
     userEmail,
     supabaseUserId,
+    userRole,
+
     isAuthenticated,
     initializing,
     loginWithEmail,

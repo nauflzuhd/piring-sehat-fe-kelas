@@ -1,7 +1,7 @@
 /* Welcome Section */
 .welcome {
   min-height: 100vh;
-  padding: 80px 40px;
+  padding: 120px 40px;
   display: flex;
   align-items: center;
   background: transparent;
@@ -12,15 +12,16 @@
   grid-template-columns: 1fr 1fr;
   gap: 3rem;
   align-items: center;
-  max-width: 1200px;
+  max-width: 1300px;
   margin: 0 auto;
   width: 100%;
   background: linear-gradient(135deg, rgba(255, 255, 255, 0.97) 0%, rgba(240, 253, 244, 0.95) 100%);
   backdrop-filter: blur(15px);
   border-radius: 28px;
-  padding: 60px;
-  box-shadow: 0 25px 70px rgba(0, 0, 0, 0.12), inset 0 1px 0 rgba(255, 255, 255, 0.8);
-  border: 2px solid transparent;
+  padding: 150px 60px;
+  box-shadow: 0 25px 70px rgba(0, 0, 0, 0.12), inset 0 1px 0 rgba(255, 255, 255, 0.8), 
+              0 0 40px rgba(16, 185, 129, 0.1);
+  border: 2px solid rgba(16, 185, 129, 0.2);
   background-clip: padding-box;
   position: relative;
   overflow: hidden;
@@ -135,7 +136,7 @@
 
 .welcome-image img {
   width: 100%;
-  max-width: 500px;
+  max-width: 340px;
   height: auto;
   object-fit: contain;
   transition: transform 0.3s ease;
@@ -186,7 +187,7 @@
   .welcome-text { text-align: center; }
   .welcome h2 { font-size: 2rem; }
   .welcome-image { order: -1; }
-  .welcome-image img { max-width: 300px; }
+  .welcome-image img { max-width: 220px; }
 }
 
 @media (max-width: 768px) {
@@ -197,7 +198,7 @@
   .welcome p { font-size: 1rem; }
   .welcome-badge { font-size: 0.7rem; padding: 6px 12px; }
   .welcome-image { order: -1; }
-  .welcome-image img { max-width: 250px; }
+  .welcome-image img { max-width: 170px; }
   .welcome-cta { padding: 12px 28px; font-size: 0.95rem; }
 }
 
@@ -209,7 +210,7 @@
   .welcome-badge { font-size: 0.65rem; padding: 6px 12px; margin-bottom: 0.8rem; }
   .welcome-desc { font-size: 0.9rem; }
   .welcome-image { margin-top: 0.5rem; }
-  .welcome-image img { max-width: 220px; }
+  .welcome-image img { max-width: 150px; }
   .welcome-cta { padding: 11px 26px; font-size: 0.9rem; width: 100%; max-width: 280px; }
   .welcome-actions { margin-top: 1.5rem; text-align: center; }
 }

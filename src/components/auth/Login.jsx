@@ -158,6 +158,8 @@ function Login() {
 
       if (err.code === 'auth/popup-closed-by-user') {
         setError('Popup ditutup. Silakan coba lagi.')
+      } else if (err.code === 'auth/account-exists-with-different-credential') {
+        setError('Email ini sudah terdaftar dengan provider lain. Silakan login dengan provider yang sama atau gunakan email berbeda.')
       } else {
         setError('Gagal login dengan GitHub: ' + err.message)
       }

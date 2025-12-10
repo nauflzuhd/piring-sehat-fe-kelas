@@ -6,6 +6,8 @@ export { default as Footer } from './layout/Footer'
 
 export { default as WelcomeSection } from './sections/WelcomeSection'
 export { default as TentangKami } from './sections/TentangKami'
+export { default as TestimoniSection } from './sections/TestimoniSection'
+export { default as AddTestimoni } from './sections/AddTestimoni'
 export { default as BMICalculator } from './sections/BMICalculator'
 export { default as CariMakanan } from './sections/CariMakanan'
 export { default as HitungKalori } from './sections/HitungKalori'
