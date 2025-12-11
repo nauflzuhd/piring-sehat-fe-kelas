@@ -13,7 +13,8 @@
  * @returns {JSX.Element}
  */
 
-import { useState, useEffect } from 'react'
+import { useState, useEffect, useRef } from 'react'
+
 import './Navbar.css'
 import HamburgerButton from './HamburgerButton'
 import NavMenu from './NavMenu'
@@ -22,11 +23,15 @@ import logo from '../../assets/new-logo.png'
 
 function Navbar({ userEmail, onLogout, onOpenLogin, isAuthenticated }) {
   const [isMenuOpen, setIsMenuOpen] = useState(false)
+  const [isVisible, setIsVisible] = useState(true)
+  const lastScrollY = useRef(0)
 
   const toggleMenu = () => setIsMenuOpen(!isMenuOpen)
   const closeMenu = () => setIsMenuOpen(false)
 
+  // Lock body scroll when mobile menu is open
   useEffect(() => {
+
     if (!isMenuOpen) return
 
     // Prevent scroll when menu is open
@@ -40,9 +45,65 @@ function Navbar({ userEmail, onLogout, onOpenLogin, isAuthenticated }) {
     }
   }, [isMenuOpen])
 
+  // Hide navbar on scroll down, show on scroll up (tanpa threshold)
+  useEffect(() => {
+    const handleScroll = () => {
+      const currentY = window.scrollY || window.pageYOffset
+
+      // Selalu tampilkan navbar ketika di paling atas
+      if (currentY <= 0) {
+        setIsVisible(true)
+        lastScrollY.current = 0
+        return
+      }
+
+      const prevY = lastScrollY.current
+
+      // Scroll ke bawah -> sembunyikan navbar
+      if (currentY > prevY) {
+        setIsVisible(false)
+      }
+      // Scroll ke atas -> tampilkan navbar
+      else if (currentY < prevY) {
+        setIsVisible(true)
+      }
+
+      lastScrollY.current = currentY
+    }
+
+    // Tambahan: deteksi arah scroll via wheel event,
+    // berguna ketika sudah mentok di bawah/atas sehingga scrollY tidak berubah
+    const handleWheel = (event) => {
+      const currentY = window.scrollY || window.pageYOffset
+
+      // Tetap hormati aturan: kalau di paling atas, navbar harus selalu kelihatan
+      if (currentY <= 0) {
+        setIsVisible(true)
+        return
+      }
+
+      if (event.deltaY > 0) {
+        // Scroll gesture ke bawah
+        setIsVisible(false)
+      } else if (event.deltaY < 0) {
+        // Scroll gesture ke atas
+        setIsVisible(true)
+      }
+    }
+
+    window.addEventListener('scroll', handleScroll)
+    window.addEventListener('wheel', handleWheel, { passive: true })
+
+    return () => {
+      window.removeEventListener('scroll', handleScroll)
+      window.removeEventListener('wheel', handleWheel)
+    }
+  }, [])
+
   return (
     <>
-      <nav className="navbar">
+      <nav className={`navbar ${isVisible ? '' : 'navbar-hidden'}`}>
+
         <div className="navbar-container">
 
           <div className="navbar-brand">

@@ -4,10 +4,17 @@
   -webkit-backdrop-filter: blur(12px);   
   border-bottom: 1px solid rgba(255, 255, 255, 0.1);
   box-shadow: 0 4px 30px rgba(0, 0, 0, 0.1);
-  position: sticky;
+  position: fixed;
   top: 0;
+  left: 0;
+  width: 100%;
   z-index: 100;
-  transition: all 0.3s ease;
+  transition: transform 0.25s ease, opacity 0.2s ease;
+}
+
+.navbar.navbar-hidden {
+  transform: translateY(-100%);
+  opacity: 0;
 }
 
 .navbar-container {
