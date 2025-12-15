@@ -15,16 +15,21 @@ async function getAuthHeaders() {
 }
 
 /**
- * Helper sederhana untuk melakukan GET request ke endpoint makanan.
+ * Helper sederhana untuk melakukan request ke endpoint makanan.
  * Melakukan parsing JSON dan melempar Error jika response tidak OK.
  * @param {string} path Path endpoint (mis. '/api/foods/search').
+ * @param {RequestInit} [options] Opsi tambahan fetch (method, body, dll.).
  * @returns {Promise<any>} Body response yang ter-parse.
  */
-async function request(path) {
+async function request(path, options = {}) {
   const authHeaders = await getAuthHeaders()
   const res = await fetch(`${BASE_URL}${path}`, {
+    method: 'GET',
+    ...options,
     headers: {
+      'Content-Type': 'application/json',
       ...authHeaders,
+      ...(options.headers || {}),
     },
   })
 
@@ -77,4 +82,34 @@ export async function getFirstFoodByName(query) {
 
   const body = await request(`/api/foods/first?query=${encodeURIComponent(normalized)}`)
   return body.data || null
+}
+
+/**
+ * Membuat makanan baru di backend.
+ * Hanya boleh dipakai oleh admin (backend sebaiknya memverifikasi role).
+ *
+ * @param {Object} payload
+ * @param {string} payload.name
+ * @param {number|string} payload.calories
+ * @param {number|string} [payload.proteins]
+ * @param {number|string} [payload.carbohydrate]
+ * @param {number|string} [payload.fat]
+ * @param {string} [payload.image_url]
+ * @returns {Promise<any>} Objek makanan yang baru dibuat.
+ */
+export async function createFood(payload) {
+  const normalizedPayload = {
+    ...payload,
+    calories: payload.calories !== '' ? Number(payload.calories) : null,
+    proteins: payload.proteins !== '' ? Number(payload.proteins) : null,
+    carbohydrate: payload.carbohydrate !== '' ? Number(payload.carbohydrate) : null,
+    fat: payload.fat !== '' ? Number(payload.fat) : null,
+  }
+
+  const body = await request('/api/foods', {
+    method: 'POST',
+    body: JSON.stringify(normalizedPayload),
+  })
+
+  return body.data
 }
