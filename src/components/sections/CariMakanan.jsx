@@ -19,7 +19,7 @@ const LETTERS = 'ABCDEFGHIJKLMNOPQRSTUVWXYZ'.split('')
 function CariMakanan() {
 
   const [searchTerm, setSearchTerm] = useState('')
-  const [debouncedSearchTerm, setDebouncedSearchTerm] = useState('') // DEBOUNCE STATE
+
   const [allFoods, setAllFoods] = useState([])
   const [groupedFoods, setGroupedFoods] = useState({})
   const [isLoading, setIsLoading] = useState(false)
@@ -80,16 +80,6 @@ function CariMakanan() {
     }
   }, [isAddFoodModalOpen])
 
-  // Debounce input pencarian.
-  // Mengupdate `debouncedSearchTerm` 300ms setelah user berhenti mengetik.
-  useEffect(() => {
-    const timeout = setTimeout(() => {
-      setDebouncedSearchTerm(searchTerm)
-    }, 300)
-
-    return () => clearTimeout(timeout)
-  }, [searchTerm])
-
   // Load awal semua makanan (hingga limit tertentu) saat komponen pertama kali mount,
   // lalu mengelompokkannya berdasarkan huruf pertama.
   useEffect(() => {
@@ -133,35 +123,30 @@ function CariMakanan() {
     return Object.keys(groupedFoods).sort()
   }
 
-  const fetchDebouncedFoods = async () => {
-    try {
-      setIsLoading(true)
-      setError('')
-
-      const results = await searchFoodsByName(debouncedSearchTerm, 100)
-      setAllFoods(results)
-      groupFoodsByLetter(results)
-    } catch (err) {
-      console.error('Gagal mencari makanan:', err)
-      setError('Gagal mencari makanan. Silakan coba lagi.')
-    } finally {
-      setIsLoading(false)
-    }
-  }
-
-  // Setiap kali `debouncedSearchTerm` berubah:
-  // - jika kosong, reload semua makanan
-  // - jika berisi query, memanggil API pencarian dengan term yang sudah di-debounce.
-  useEffect(() => {
-    if (debouncedSearchTerm.trim() === '') {
-      loadAllFoods()
-    } else {
-      fetchDebouncedFoods()
-    }
-  }, [debouncedSearchTerm])
-
   const handleSearch = (e) => {
     e.preventDefault()
+    const term = searchTerm.trim()
+
+    if (term === '') {
+      // Jika input kosong, muat ulang semua makanan
+      loadAllFoods()
+      return
+    }
+
+    ;(async () => {
+      try {
+        setIsLoading(true)
+        setError('')
+        const results = await searchFoodsByName(term, 100)
+        setAllFoods(results)
+        groupFoodsByLetter(results)
+      } catch (err) {
+        console.error('Gagal mencari makanan:', err)
+        setError('Gagal mencari makanan. Silakan coba lagi.')
+      } finally {
+        setIsLoading(false)
+      }
+    })()
   }
 
   const handleOpenAddFoodModal = () => {
