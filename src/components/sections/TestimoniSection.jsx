@@ -1,5 +1,6 @@
 import { useState, useEffect } from 'react'
 import { useNavigate, useOutletContext } from 'react-router-dom'
+import { fetchAllTestimonials } from '../../services/testimoniService'
 import './TestimoniSection.css'
 
 
@@ -36,12 +37,7 @@ function TestimoniSection() {
    */
   const fetchTestimonials = async () => {
     try {
-      const apiUrl = import.meta.env.VITE_BACKEND_URL || 'http://localhost:3000'
-      const response = await fetch(`${apiUrl}/api/testimonials`)
-
-      if (!response.ok) throw new Error('Gagal mengambil testimoni')
-
-      const data = await response.json()
+      const data = await fetchAllTestimonials()
       setTestimonials(data || [])
     } catch (err) {
       setTestimonials([])

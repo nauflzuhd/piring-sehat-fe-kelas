@@ -1,6 +1,6 @@
-import { useState } from 'react'
+import { useState, useEffect } from 'react'
 import { useOutletContext } from 'react-router-dom'
-import { auth } from '../../firebase'
+import { createTestimoni, fetchUserTestimonials } from '../../services/testimoniService'
 import './AddTestimoni.css'
 
 /**
@@ -24,12 +24,31 @@ import './AddTestimoni.css'
  */
 function AddTestimoni() {
   const context = useOutletContext()
-  const { username, isAuthenticated, onOpenLogin } = context || {}
+  const { username, supabaseUserId, isAuthenticated, onOpenLogin } = context || {}
   
   const [formData, setFormData] = useState({ job: '', message: '' })
   const [loading, setLoading] = useState(false)
   const [error, setError] = useState('')
   const [success, setSuccess] = useState(false)
+  const [alreadySubmitted, setAlreadySubmitted] = useState(false)
+
+  useEffect(() => {
+    const checkExistingTestimoni = async () => {
+      if (!supabaseUserId) return
+
+      try {
+        const testimonials = await fetchUserTestimonials(supabaseUserId)
+        if (testimonials && testimonials.length > 0) {
+          setAlreadySubmitted(true)
+        }
+      } catch (err) {
+        // Jika gagal cek, kita biarkan user tetap bisa mencoba isi form
+        console.error('Gagal mengecek testimoni user:', err)
+      }
+    }
+
+    checkExistingTestimoni()
+  }, [supabaseUserId])
 
   /**
    * Handle perubahan input form
@@ -41,16 +60,19 @@ function AddTestimoni() {
     if (error) setError('')
   }
 
-  /**
-   * Mendapatkan Firebase ID token dari user yang sedang login
-   * @async
-   * @returns {Promise<string>} Firebase ID token
-   * @throws {Error} Jika user tidak terautentikasi
-   */
-  const getFirebaseToken = async () => {
-    const user = auth.currentUser
-    if (!user) throw new Error('User tidak terautentikasi')
-    return user.getIdToken()
+  if (alreadySubmitted) {
+    return (
+      <section className="add-testimoni-section">
+        <div className="add-testimoni-container">
+          <div className="add-testimoni-header">
+            <h2 className="add-testimoni-title">Terima Kasih atas Testimoni Anda</h2>
+            <p className="add-testimoni-subtitle">
+              Anda sudah pernah mengirim testimoni. Satu user hanya dapat mengirim satu testimoni.
+            </p>
+          </div>
+        </div>
+      </section>
+    )
   }
 
   /**
@@ -79,26 +101,11 @@ function AddTestimoni() {
     setError('')
 
     try {
-      const token = await getFirebaseToken()
-      const apiUrl = import.meta.env.VITE_BACKEND_URL || 'http://localhost:3000'
-
-      const response = await fetch(`${apiUrl}/api/testimonials`, {
-        method: 'POST',
-        headers: {
-          'Content-Type': 'application/json',
-          'Authorization': `Bearer ${token}`,
-        },
-        body: JSON.stringify({
-          username,
-          job: formData.job.trim(),
-          message: formData.message.trim(),
-        }),
+      await createTestimoni({
+        username,
+        job: formData.job.trim(),
+        message: formData.message.trim(),
       })
-
-      if (!response.ok) {
-        const data = await response.json()
-        throw new Error(data.error || `Error ${response.status}: Gagal menambahkan testimoni`)
-      }
 
       setSuccess(true)
       setFormData({ job: '', message: '' })
