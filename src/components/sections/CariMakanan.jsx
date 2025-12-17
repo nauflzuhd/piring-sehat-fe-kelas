@@ -90,7 +90,8 @@ function CariMakanan() {
     try {
       setIsLoading(true)
       setError('')
-      const results = await searchFoodsByName('', 1000)
+      const results = await searchFoodsByName('', 10000)
+
       setAllFoods(results)
       groupFoodsByLetter(results)
     } catch (err) {
@@ -260,16 +261,23 @@ function CariMakanan() {
                 {letter}
               </button>
             ))}
+            <button
+              key="ALL"
+              className={`letter-btn ${selectedLetter === 'ALL' ? 'active' : ''}`}
+              onClick={() => setSelectedLetter('ALL')}
+            >
+              ALL
+            </button>
           </div>
 
           {isLoading ? (
             <div style={{ textAlign: 'center', padding: '40px' }}>Memuat data makanan...</div>
           ) : (
             <div className="foods-container">
-              <h3 className="foods-letter-title">{selectedLetter}</h3>
+              <h3 className="foods-letter-title">{selectedLetter === 'ALL' ? 'Semua' : selectedLetter}</h3>
               <div className="foods-list">
-                {groupedFoods[selectedLetter] && groupedFoods[selectedLetter].length > 0 ? (
-                  groupedFoods[selectedLetter].map((food) => (
+                {(selectedLetter === 'ALL' ? allFoods : (groupedFoods[selectedLetter] || [])).length > 0 ? (
+                  (selectedLetter === 'ALL' ? allFoods : (groupedFoods[selectedLetter] || [])).map((food) => (
                     <div key={food.id} className="food-item">
                       <img
                         src={food.image_url || food.image || notFoundImage}
@@ -294,7 +302,11 @@ function CariMakanan() {
                     </div>
                   ))
                 ) : (
-                  <p style={{ textAlign: 'center', padding: '20px' }}>Tidak ada data untuk huruf {selectedLetter}</p>
+                  <p style={{ textAlign: 'center', padding: '20px' }}>
+                    {selectedLetter === 'ALL'
+                      ? 'Tidak ada data makanan.'
+                      : `Tidak ada data untuk huruf ${selectedLetter}`}
+                  </p>
                 )}
               </div>
             </div>
